@@ -14,7 +14,8 @@ SECRET_KEY = 'django-insecure-your-secret-key-here'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['thoughtify-wpyt.onrender.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'thoughtify-wpyt.onrender.com']
+
 
 # Application definition
 INSTALLED_APPS = [
