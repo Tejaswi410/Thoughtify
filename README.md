@@ -67,31 +67,6 @@ python manage.py runserver
 
 Visit `http://127.0.0.1:8000` in your browser.
 
-## Production Deployment
-
-For production deployment, make sure to:
-
-1. Set `DEBUG=False` in your environment
-2. Configure a proper database (e.g., PostgreSQL)
-3. Use a production-grade server (e.g., Gunicorn)
-4. Set up proper static file serving
-5. Configure proper security settings
-
-Example production settings:
-```bash
-DEBUG=False
-ALLOWED_HOSTS=your-domain.com
-DATABASE_URL=your-database-url
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
