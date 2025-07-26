@@ -1,0 +1,15 @@
+{% extends 'thoughtify/base.html' %}
+
+{% block content %}
+<div class="min-h-[60vh] flex items-center justify-center">
+    <div class="glass-morphism rounded-2xl p-8 shadow-2xl shadow-violet-500/10 w-full max-w-md mx-auto">
+        <h2 class="text-2xl font-bold text-violet-300 mb-6 text-center">Edit Profile</h2>
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            <div class="flex justify-center">
+                <button type="submit" class="px-6 py-2 rounded-lg bg-gradient-to-r from-violet-600 to-cyan-600 text-white hover:from-violet-700 hover:to-cyan-700 transition-all shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %} 

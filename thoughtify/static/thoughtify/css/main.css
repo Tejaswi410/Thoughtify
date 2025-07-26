@@ -1,0 +1,212 @@
+@keyframes float {
+  0% { transform: translateY(0px) rotateX(10deg); }
+  50% { transform: translateY(-10px) rotateX(15deg); }
+  100% { transform: translateY(0px) rotateX(10deg); }
+}
+
+@keyframes rotate3d {
+  0% { transform: rotate3d(1, 1, 1, 0deg); }
+  100% { transform: rotate3d(1, 1, 1, 360deg); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.5); }
+  50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.8); }
+  100% { box-shadow: 0 0 5px rgba(139, 92, 246, 0.5); }
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.gradient-shift {
+  background-size: 200% 200%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+.glass-morphism {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Infinity Symbol Styles */
+.infinity-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  perspective: 2000px;
+  overflow: hidden;
+}
+
+.infinity-symbol {
+  position: absolute;
+  width: 600px;
+  height: 300px;
+  top: 50%;
+  left: 50%;
+  transform-style: preserve-3d;
+  transform: translate(-50%, -50%);
+  animation: float 12s ease-in-out infinite, rotate3d 30s linear infinite;
+}
+
+.infinity-symbol::before,
+.infinity-symbol::after {
+  content: "";
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 0 0 40px rgba(139, 92, 246, 0.4);
+}
+
+.infinity-symbol::before {
+  left: 0;
+  transform: translateX(25%);
+}
+
+.infinity-symbol::after {
+  right: 0;
+  transform: translateX(-25%);
+}
+
+.infinity-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
+  filter: blur(30px);
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+.thought-card {
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.thought-card:hover {
+  transform: translateY(-5px) rotateX(2deg);
+}
+
+.emotion-tag {
+  transition: all 0.3s ease;
+  text-shadow: 0 0 10px currentColor;
+}
+
+.emotion-tag:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+
+.hero-background {
+  background: linear-gradient(45deg, #1a1a2e, #16213e, #1a1a2e);
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+.input-glow:focus {
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+}
+
+/* Dark mode scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f2937;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4f46e5;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6366f1;
+}
+
+/* Multiple floating infinity symbols */
+.infinity-symbol:nth-child(2) {
+  transform: translate(-50%, -50%) scale(2);
+  animation-delay: -4s;
+  opacity: 0.4;
+}
+
+.infinity-symbol:nth-child(3) {
+  transform: translate(-50%, -50%) scale(1.5);
+  animation-delay: -8s;
+  opacity: 0.3;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 1024px) {
+  .infinity-symbol {
+    width: 400px;
+    height: 200px;
+  }
+
+  .infinity-symbol::before,
+  .infinity-symbol::after {
+    width: 200px;
+    height: 200px;
+  }
+
+  .infinity-symbol:nth-child(2) {
+    transform: translate(-50%, -50%) scale(1.5);
+  }
+
+  .infinity-symbol:nth-child(3) {
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+}
+
+@media (max-width: 640px) {
+  .infinity-symbol {
+    width: 300px;
+    height: 150px;
+  }
+
+  .infinity-symbol::before,
+  .infinity-symbol::after {
+    width: 150px;
+    height: 150px;
+  }
+
+  .infinity-symbol:nth-child(2) {
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+
+  .infinity-symbol:nth-child(3) {
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* Prevent animation on reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+} 

@@ -1,0 +1,41 @@
+{% extends 'thoughtify/base.html' %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-8">
+    <h1 class="text-3xl font-bold mb-8 bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">My Thoughts</h1>
+    <div class="space-y-6">
+        {% if thoughts %}
+            {% for thought in thoughts %}
+                <div class="thought-card glass-morphism rounded-xl p-6 mb-6 shadow-lg flex items-start space-x-4">
+                    <div class="flex flex-col items-center justify-center mr-4">
+                        {% with mood=thought.emotion_tag.name|lower %}
+                            <span class="text-3xl">
+                                {% if mood == 'happy' %}😊
+                                {% elif mood == 'sad' %}😢
+                                {% elif mood == 'excited' %}🤩
+                                {% elif mood == 'anxious' %}😰
+                                {% elif mood == 'grateful' %}🙏
+                                {% elif mood == 'confused' %}😕
+                                {% elif mood == 'hopeful' %}🌈
+                                {% elif mood == 'tired' %}😴
+                                {% else %}🙂
+                                {% endif %}
+                            </span>
+                        {% endwith %}
+                        <span class="text-xs text-pink-300 font-mono mt-1">{{ thought.author.userprofile.anonymous_code }}</span>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-gray-200 text-lg mb-2">{{ thought.content }}</div>
+                        <div class="text-sm text-gray-400 mt-2 flex items-center">
+                            <span class="mr-2">{{ thought.emotion_tag }}</span>
+                            <span class="ml-auto">{{ thought.created_at|date:'M d, Y H:i' }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="text-center text-gray-400 py-12 text-lg">You haven't posted any thoughts yet.</div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %} 

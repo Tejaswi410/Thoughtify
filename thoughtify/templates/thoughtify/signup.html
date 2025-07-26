@@ -1,113 +1,274 @@
 {% extends 'thoughtify/base.html' %}
 
 {% block content %}
-<div class="max-w-md mx-auto">
-    <div class="text-center mb-8">
-        <h2 class="text-3xl font-bold text-gray-900">Create your account</h2>
-        <p class="mt-2 text-sm text-gray-600">
-            Already have an account?
-            <a href="{% url 'login' %}" class="font-medium text-indigo-600 hover:text-indigo-500">
-                Sign in
-            </a>
-        </p>
+<div class="min-h-[80vh] flex items-center justify-center relative">
+    <!-- Animated background elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-1/3 right-1/4 w-64 h-64 bg-violet-500/20 rounded-full filter blur-3xl floating"></div>
+        <div class="absolute bottom-1/3 left-1/4 w-64 h-64 bg-cyan-500/20 rounded-full filter blur-3xl floating" style="animation-delay: -3s;"></div>
     </div>
 
-    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <form method="post" class="space-y-6">
-            {% csrf_token %}
-            
-            {% if form.non_field_errors %}
-            <div class="rounded-md bg-red-50 p-4">
-                <div class="flex">
-                    <div class="ml-3">
-                        <h3 class="text-sm font-medium text-red-800">
-                            {% for error in form.non_field_errors %}
-                                {{ error }}
-                            {% endfor %}
-                        </h3>
+    <div class="w-full max-w-md mx-auto relative z-10">
+        <div class="text-center mb-8">
+            <h2 class="text-4xl font-bold bg-gradient-to-r from-violet-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-4">Create your account</h2>
+            <p class="text-gray-300">
+                Already have an account?
+                <a href="{% url 'login' %}" class="font-medium text-violet-400 hover:text-violet-300 transition-colors">
+                    Sign in
+                </a>
+            </p>
+        </div>
+
+        <div class="glass-morphism rounded-2xl p-8 shadow-2xl shadow-violet-500/10">
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                <div class="glass-morphism rounded-xl p-4 bg-red-500/10 border border-red-500/20">
+                    <div class="flex">
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-red-400">
+                                {% for error in form.non_field_errors %}
+                                    {{ error }}
+                                {% endfor %}
+                            </h3>
+                        </div>
                     </div>
                 </div>
-            </div>
-            {% endif %}
+                {% endif %}
 
-            <div>
-                <label for="id_username" class="block text-sm font-medium text-gray-700">
-                    Email
-                </label>
-                <div class="mt-1">
-                    <input
-                        id="id_username"
-                        name="username"
-                        type="email"
-                        autocomplete="email"
-                        required
-                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    >
+                <div class="relative group">
+                    <label for="id_username" class="block text-sm font-medium text-gray-300 mb-2">
+                        Email
+                    </label>
+                    <div class="relative">
+                        <input
+                            id="id_username"
+                            name="username"
+                            type="email"
+                            autocomplete="email"
+                            required
+                            class="block w-full px-4 py-3 bg-dark-lighter text-gray-100 border border-gray-700 rounded-xl focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all input-glow sm:text-sm"
+                            placeholder="Enter your email"
+                        >
+                        <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-violet-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    </div>
                     {% if form.username.errors %}
-                    <p class="mt-2 text-sm text-red-600">
+                    <p class="mt-2 text-sm text-red-400">
                         {% for error in form.username.errors %}
                             {{ error }}
                         {% endfor %}
                     </p>
                     {% endif %}
                 </div>
-            </div>
 
-            <div>
-                <label for="id_password1" class="block text-sm font-medium text-gray-700">
-                    Password
-                </label>
-                <div class="mt-1">
-                    <input
-                        id="id_password1"
-                        name="password1"
-                        type="password"
-                        autocomplete="new-password"
-                        required
-                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    >
+                <div class="relative group">
+                    <label for="id_password1" class="block text-sm font-medium text-gray-300 mb-2">
+                        Password
+                    </label>
+                    <div class="relative">
+                        <input
+                            id="id_password1"
+                            name="password1"
+                            type="password"
+                            autocomplete="new-password"
+                            required
+                            class="block w-full px-4 py-3 bg-dark-lighter text-gray-100 border border-gray-700 rounded-xl focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all input-glow sm:text-sm pr-12"
+                            placeholder="Create a password"
+                        >
+                        <button type="button" id="togglePassword1" tabindex="-1" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-violet-400 focus:outline-none" aria-label="Show password">
+                            <svg id="eyeIcon1" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                        <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-violet-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    </div>
                     {% if form.password1.errors %}
-                    <p class="mt-2 text-sm text-red-600">
+                    <p class="mt-2 text-sm text-red-400">
                         {% for error in form.password1.errors %}
                             {{ error }}
                         {% endfor %}
                     </p>
                     {% endif %}
                     {% if form.password1.help_text %}
-                    <p class="mt-2 text-sm text-gray-500">{{ form.password1.help_text|safe }}</p>
+                    <div class="mt-2 space-y-1 text-sm text-gray-400">
+                        {{ form.password1.help_text|safe }}
+                    </div>
                     {% endif %}
                 </div>
-            </div>
 
-            <div>
-                <label for="id_password2" class="block text-sm font-medium text-gray-700">
-                    Confirm Password
-                </label>
-                <div class="mt-1">
-                    <input
-                        id="id_password2"
-                        name="password2"
-                        type="password"
-                        autocomplete="new-password"
-                        required
-                        class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                    >
+                <div class="relative group">
+                    <label for="id_password2" class="block text-sm font-medium text-gray-300 mb-2">
+                        Confirm Password
+                    </label>
+                    <div class="relative">
+                        <input
+                            id="id_password2"
+                            name="password2"
+                            type="password"
+                            autocomplete="new-password"
+                            required
+                            class="block w-full px-4 py-3 bg-dark-lighter text-gray-100 border border-gray-700 rounded-xl focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500 transition-all input-glow sm:text-sm pr-12"
+                            placeholder="Confirm your password"
+                        >
+                        <button type="button" id="togglePassword2" tabindex="-1" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-violet-400 focus:outline-none" aria-label="Show password">
+                            <svg id="eyeIcon2" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                        <div class="absolute inset-0 rounded-xl bg-gradient-to-r from-violet-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    </div>
                     {% if form.password2.errors %}
-                    <p class="mt-2 text-sm text-red-600">
+                    <p class="mt-2 text-sm text-red-400">
                         {% for error in form.password2.errors %}
                             {{ error }}
                         {% endfor %}
                     </p>
                     {% endif %}
                 </div>
-            </div>
 
-            <div>
-                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    Create Account
-                </button>
-            </div>
-        </form>
+                <div>
+                    <button type="submit" class="w-full flex justify-center py-3 px-4 rounded-xl text-white bg-gradient-to-r from-violet-600 to-cyan-600 hover:from-violet-700 hover:to-cyan-700 transition-all shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40 font-medium text-lg pulse-glow">
+                        Create Account
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Animate form elements on load
+        gsap.from('.glass-morphism', {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            ease: 'power3.out'
+        });
+
+        gsap.from('form > *', {
+            opacity: 0,
+            y: 20,
+            duration: 0.6,
+            stagger: 0.1,
+            delay: 0.3,
+            ease: 'power2.out'
+        });
+
+        // Password strength indicator
+        const password1Input = document.getElementById('id_password1');
+        const password2Input = document.getElementById('id_password2');
+        
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (password.match(/[a-z]+/)) strength++;
+            if (password.match(/[A-Z]+/)) strength++;
+            if (password.match(/[0-9]+/)) strength++;
+            if (password.match(/[^a-zA-Z0-9]+/)) strength++;
+            return strength;
+        }
+
+        function updatePasswordStrength() {
+            const password = password1Input.value;
+            const strength = checkPasswordStrength(password);
+            const borderColors = [
+                'border-red-500',
+                'border-orange-500',
+                'border-yellow-500',
+                'border-green-500',
+                'border-emerald-500'
+            ];
+            
+            // Remove all possible border colors
+            password1Input.classList.remove(...borderColors);
+            
+            if (password.length > 0) {
+                password1Input.classList.add(borderColors[strength - 1]);
+            }
+        }
+
+        function checkPasswordMatch() {
+            const password1 = password1Input.value;
+            const password2 = password2Input.value;
+            
+            if (password2.length > 0) {
+                if (password1 === password2) {
+                    password2Input.classList.remove('border-red-500');
+                    password2Input.classList.add('border-green-500');
+                } else {
+                    password2Input.classList.remove('border-green-500');
+                    password2Input.classList.add('border-red-500');
+                }
+            }
+        }
+
+        password1Input.addEventListener('input', () => {
+            updatePasswordStrength();
+            checkPasswordMatch();
+        });
+
+        password2Input.addEventListener('input', checkPasswordMatch);
+
+        // Password visibility toggles
+        function setupPasswordToggle(inputId, buttonId, iconId) {
+            const input = document.getElementById(inputId);
+            const button = document.getElementById(buttonId);
+            const icon = document.getElementById(iconId);
+            let visible = false;
+            button.addEventListener('click', () => {
+                visible = !visible;
+                input.type = visible ? 'text' : 'password';
+                icon.innerHTML = visible
+                    ? `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a9.956 9.956 0 012.042-3.368m1.528-1.712A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a9.965 9.965 0 01-4.293 5.411M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18" />`
+                    : `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />\n<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />`;
+            });
+        }
+        setupPasswordToggle('id_password1', 'togglePassword1', 'eyeIcon1');
+        setupPasswordToggle('id_password2', 'togglePassword2', 'eyeIcon2');
+
+        // Form validation animation
+        const form = document.querySelector('form');
+        form.addEventListener('submit', (e) => {
+            const email = document.getElementById('id_username').value;
+            const password1 = password1Input.value;
+            const password2 = password2Input.value;
+            let isValid = true;
+
+            if (!email) {
+                isValid = false;
+                gsap.to('#id_username', {
+                    x: [-10, 10, -10, 10, 0],
+                    duration: 0.4,
+                    ease: 'power2.out'
+                });
+            }
+
+            if (!password1) {
+                isValid = false;
+                gsap.to('#id_password1', {
+                    x: [-10, 10, -10, 10, 0],
+                    duration: 0.4,
+                    ease: 'power2.out'
+                });
+            }
+
+            if (!password2) {
+                isValid = false;
+                gsap.to('#id_password2', {
+                    x: [-10, 10, -10, 10, 0],
+                    duration: 0.4,
+                    ease: 'power2.out'
+                });
+            }
+
+            if (!isValid) {
+                e.preventDefault();
+            }
+        });
+    });
+</script>
 {% endblock %} 

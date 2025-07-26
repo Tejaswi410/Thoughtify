@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 import random
+from django.core.validators import FileExtensionValidator
 
 class EmotionTag(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -10,14 +11,26 @@ class EmotionTag(models.Model):
     def __str__(self):
         return self.name
 
+EMOJI_CHOICES = [
+    ('🙂', 'Smiling'),
+    ('😎', 'Cool'),
+    ('🤓', 'Nerdy'),
+    ('😂', 'Laughing'),
+    ('🥳', 'Party'),
+    ('😇', 'Innocent'),
+    ('😈', 'Mischievous'),
+    ('🤠', 'Cowboy'),
+]
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     anonymous_code = models.CharField(max_length=4, unique=True)
-    bio = models.TextField(max_length=500, blank=True)
     show_public_thoughts = models.BooleanField(default=True)
     last_daily_thought = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    email_confirmed = models.BooleanField(default=False)
+    confirmation_token = models.CharField(max_length=64, blank=True, null=True)
 
     def __str__(self):
         return self.anonymous_code
@@ -35,6 +48,17 @@ class UserProfile(models.Model):
         if not self.last_daily_thought:
             return True
         return self.last_daily_thought < timezone.now().date()
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    thought = models.ForeignKey('Thought', on_delete=models.CASCADE, related_name='likes')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'thought')
+
+    def __str__(self):
+        return f"{self.user.username} likes {self.thought.id}"
 
 class Thought(models.Model):
     SENTIMENT_CHOICES = [
@@ -75,6 +99,10 @@ class Thought(models.Model):
         if self.author and hasattr(self.author, 'userprofile'):
             return self.author.userprofile.anonymous_code
         return 'Anonymous'
+
+    @property
+    def likes_count(self):
+        return self.likes.count()
 
 class DraftThought(models.Model):
     """Store thoughts from non-logged-in users temporarily"""

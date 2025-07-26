@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from .models import Thought, UserProfile
+from .models import Thought, UserProfile, EMOJI_CHOICES
 
 class EmailAuthenticationForm(AuthenticationForm):
     username = forms.EmailField(
@@ -53,14 +53,8 @@ class UserSignUpForm(UserCreationForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('bio',)
-        widgets = {
-            'bio': forms.Textarea(attrs={
-                'class': 'appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm',
-                'rows': 3,
-                'placeholder': 'Tell us a bit about yourself...'
-            })
-        }
+        fields = ()  # No fields for bio or profile_picture
+        widgets = {}
 
 class ThoughtForm(forms.ModelForm):
     class Meta:
